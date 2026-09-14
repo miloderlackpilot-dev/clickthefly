@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLICK THE FLY</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;overflow:hidden;background:#111;color:#fff;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center}.game{width:min(900px,94vw);height:min(650px,92vh);background:#202020;border:3px solid #777;box-shadow:0 0 0 3px #050505,0 15px 50px #000;position:relative;overflow:hidden}.top{height:90px;background:#292929;border-bottom:2px solid #555;text-align:center;padding:12px}.top h1{margin:0;font-size:30px;letter-spacing:5px}.score{font-size:18px;margin-top:6px}.field{position:absolute;top:90px;bottom:0;left:0;right:0;background:radial-gradient(circle at 50% 40%,#303030,#171717 70%);cursor:crosshair}.fly{position:absolute;width:90px;height:70px;transform:translate(-50%,-50%);cursor:pointer;user-select:none;transition:transform .08s}.fly:active{transform:translate(-50%,-50%) scale(.82)}.body{position:absolute;left:32px;top:24px;width:27px;height:38px;background:#090909;border-radius:50%;z-index:3}.head{position:absolute;left:36px;top:10px;width:30px;height:30px;background:#151515;border-radius:50%;z-index:4}.eye{position:absolute;top:16px;width:8px;height:8px;background:#ddd;border-radius:50%;z-index:5}.eye:after{content:"";display:block;width:3px;height:3px;background:#000;border-radius:50%;margin:2px}.e1{left:38px}.e2{left:56px}.wing{position:absolute;top:20px;width:40px;height:22px;background:rgba(190,210,220,.55);border:2px solid #aaa;border-radius:70% 20% 70% 20%;z-index:2}.w1{left:3px;transform:rotate(-20deg)}.w2{left:48px;transform:scaleX(-1) rotate(-20deg)}.leg{position:absolute;width:30px;height:3px;background:#111;top:45px;z-index:1}.l1{left:8px;transform:rotate(25deg)}.l2{left:51px;transform:rotate(-25deg)}.pop{position:absolute;color:#fff;font-size:22px;font-weight:bold;pointer-events:none;animation:pop .7s ease-out forwards}@keyframes pop{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-45px) scale(1.3)}}.hint{position:absolute;bottom:15px;left:0;right:0;text-align:center;color:#999;font-size:12px;pointer-events:none}.best{position:absolute;top:10px;right:15px;font-size:12px;color:#aaa}@media(max-width:600px){.top h1{font-size:21px}.top{height:80px}.field{top:80px}.fly{width:75px;height:62px;transform:translate(-50%,-50%) scale(.85)}}
+</style>
+</head>
+<body>
+<div class="game">
+<header class="top"><h1>CLICK THE FLY</h1><div class="score">POINTS: <b id="score">0</b></div><div class="best">BEST: <b id="best">0</b></div></header>
+<main class="field" id="field"><div class="fly" id="fly" aria-label="Fliege anklicken"><div class="wing w1"></div><div class="wing w2"></div><div class="leg l1"></div><div class="leg l2"></div><div class="body"></div><div class="head"></div><div class="eye e1"></div><div class="eye e2"></div></div><div class="hint">CLICK THE FLY • EVERY CLICK ADDS ONE POINT</div></main>
+</div>
+<script>
+const field=document.getElementById('field'),fly=document.getElementById('fly'),scoreEl=document.getElementById('score'),bestEl=document.getElementById('best');let score=0,best=Number(localStorage.getItem('flyBest')||0);bestEl.textContent=best;
+function moveFly(){const r=field.getBoundingClientRect(),pad=70;const x=pad+Math.random()*Math.max(1,r.width-pad*2),y=pad+Math.random()*Math.max(1,r.height-pad*2);fly.style.left=x+'px';fly.style.top=y+'px'}
+function clickFly(e){e.stopPropagation();score++;scoreEl.textContent=score;if(score>best){best=score;bestEl.textContent=best;localStorage.setItem('flyBest',best)}const p=document.createElement('div');p.className='pop';p.textContent='+1';const r=field.getBoundingClientRect();p.style.left=(e.clientX-r.left)+'px';p.style.top=(e.clientY-r.top)+'px';field.appendChild(p);setTimeout(()=>p.remove(),700);moveFly()}
+fly.addEventListener('click',clickFly);window.addEventListener('resize',moveFly);moveFly();
+</script>
+</body>
+</html>
