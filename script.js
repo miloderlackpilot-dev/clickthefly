@@ -1,7 +1,7 @@
 class Game {
     constructor() {
         this.score = 0;
-        this.best = localStorage.getItem('flyBest') || 0;
+        this.best = parseInt(localStorage.getItem('flyBest')) || 0;
         this.timeLeft = 0;
         this.running = false;
         this.paused = false;
@@ -26,22 +26,33 @@ class Game {
     }
 
     init() {
-        // Menu buttons
-        document.querySelectorAll('.btn-difficulty').forEach(btn => {
+        // Menu buttons - Fix für Event Listener
+        const diffButtons = document.querySelectorAll('.btn-difficulty');
+        console.log('Found difficulty buttons:', diffButtons.length);
+        
+        diffButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                this.difficulty = e.target.dataset.difficulty;
+                this.difficulty = btn.dataset.difficulty;
+                console.log('Starting game with difficulty:', this.difficulty);
                 this.start();
             });
         });
 
         // Game buttons
-        document.getElementById('pause-btn').addEventListener('click', () => this.pause());
-        document.getElementById('resume-btn').addEventListener('click', () => this.resume());
-        document.getElementById('pause-menu-btn').addEventListener('click', () => this.goMenu());
-        document.getElementById('exit-btn').addEventListener('click', () => this.goMenu());
-        document.getElementById('replay-btn').addEventListener('click', () => this.goMenu());
+        const pauseBtn = document.getElementById('pause-btn');
+        const resumeBtn = document.getElementById('resume-btn');
+        const pauseMenuBtn = document.getElementById('pause-menu-btn');
+        const exitBtn = document.getElementById('exit-btn');
+        const replayBtn = document.getElementById('replay-btn');
+
+        if (pauseBtn) pauseBtn.addEventListener('click', () => this.pause());
+        if (resumeBtn) resumeBtn.addEventListener('click', () => this.resume());
+        if (pauseMenuBtn) pauseMenuBtn.addEventListener('click', () => this.goMenu());
+        if (exitBtn) exitBtn.addEventListener('click', () => this.goMenu());
+        if (replayBtn) replayBtn.addEventListener('click', () => this.goMenu());
 
         this.updateBest();
+        console.log('Game initialized. Best score:', this.best);
     }
 
     start() {
@@ -50,6 +61,8 @@ class Game {
         this.running = true;
         this.paused = false;
 
+        console.log('Game started with', this.timeLeft, 'seconds');
+        
         this.showScreen('game');
         this.updateScore();
         this.updateTimer();
@@ -163,6 +176,7 @@ class Game {
         this.paused = false;
         clearInterval(this.timerInterval);
         if (this.fly) this.fly.remove();
+        this.field.innerHTML = '';
         this.showScreen('menu');
     }
 
@@ -177,6 +191,7 @@ class Game {
 }
 
 // Start game
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing game...');
     window.game = new Game();
 });
