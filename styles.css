@@ -1,0 +1,696 @@
+/* ===================================
+   CLICK THE FLY - Stylesheet
+   =================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===================================
+   ALLGEMEINE STYLES
+   =================================== */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+/* ===================================
+   HEADER
+   =================================== */
+
+.header {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-bottom: 3px solid #e94560;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: pulse 2s infinite;
+}
+
+.header .subtitle {
+    font-size: 0.9em;
+    color: #b0b0b0;
+    font-style: italic;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* ===================================
+   MAIN CONTENT
+   =================================== */
+
+.main-content {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* ===================================
+   SCREEN SYSTEM
+   =================================== */
+
+.screen {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    animation: fadeIn 0.3s ease-in;
+    z-index: 10;
+}
+
+.screen-active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ===================================
+   START-BILDSCHIRM
+   =================================== */
+
+.start-content {
+    background: rgba(15, 52, 96, 0.95);
+    border: 2px solid #e94560;
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.start-content h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: #e94560;
+}
+
+.start-content p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    color: #b0b0b0;
+}
+
+.difficulty-selector h3 {
+    margin-bottom: 20px;
+    font-size: 1.3em;
+}
+
+.difficulty-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-difficulty {
+    flex: 1;
+    min-width: 120px;
+    padding: 15px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.btn-difficulty:hover {
+    background: rgba(233, 69, 96, 0.3);
+    border-color: #e94560;
+    transform: translateY(-2px);
+}
+
+.btn-difficulty small {
+    display: block;
+    font-size: 0.8em;
+    color: #b0b0b0;
+    margin-top: 5px;
+}
+
+.stats-display {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+}
+
+.stat-label {
+    color: #b0b0b0;
+}
+
+.stat-value {
+    color: #e94560;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+/* ===================================
+   GAME-BILDSCHIRM
+   =================================== */
+
+#screen-game {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background: transparent;
+}
+
+.game-header {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    padding: 15px 20px;
+    border-bottom: 2px solid #e94560;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.info-item .label {
+    color: #b0b0b0;
+    font-size: 0.9em;
+}
+
+.info-item .value {
+    color: #e94560;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.game-field {
+    flex: 1;
+    position: relative;
+    background: linear-gradient(135deg, rgba(15, 52, 96, 0.3) 0%, rgba(22, 33, 62, 0.3) 100%);
+    border: 2px solid rgba(233, 69, 96, 0.3);
+    margin: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+.controls {
+    padding: 15px 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.btn-control {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background: #e94560;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-control:hover {
+    background: #ff5577;
+    transform: scale(1.05);
+}
+
+/* ===================================
+   FLIEGE
+   =================================== */
+
+.fly {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.1s ease;
+    filter: drop-shadow(0 0 5px rgba(233, 69, 96, 0.6));
+}
+
+.fly:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 15px rgba(233, 69, 96, 1));
+}
+
+.fly-body {
+    position: absolute;
+    width: 20px;
+    height: 25px;
+    background: #2a2a2a;
+    border-radius: 50% 50% 40% 40%;
+    left: 10px;
+    top: 8px;
+    box-shadow: inset -2px -2px 3px rgba(0, 0, 0, 0.8);
+}
+
+.fly-head {
+    position: absolute;
+    width: 15px;
+    height: 12px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    left: 12.5px;
+    top: 2px;
+    border: 1px solid #444;
+}
+
+.fly-eye {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #e94560;
+    border-radius: 50%;
+    top: 4px;
+}
+
+.fly-eye.left {
+    left: 5px;
+}
+
+.fly-eye.right {
+    right: 5px;
+}
+
+.wing {
+    position: absolute;
+    background: rgba(233, 69, 96, 0.4);
+    border: 1px solid #e94560;
+    border-radius: 50%;
+    animation: wingFlap 0.1s infinite;
+}
+
+.wing.w1 {
+    width: 18px;
+    height: 10px;
+    left: 5px;
+    top: 10px;
+    animation-direction: normal;
+}
+
+.wing.w2 {
+    width: 18px;
+    height: 10px;
+    right: 5px;
+    top: 10px;
+    animation-direction: reverse;
+}
+
+@keyframes wingFlap {
+    0%, 100% {
+        opacity: 0.4;
+        transform: rotateY(0deg);
+    }
+    50% {
+        opacity: 0.8;
+        transform: rotateY(45deg);
+    }
+}
+
+.leg {
+    position: absolute;
+    width: 2px;
+    height: 8px;
+    background: #444;
+    left: 50%;
+    bottom: -3px;
+}
+
+.leg.l1 {
+    margin-left: -6px;
+}
+
+.leg.l2 {
+    margin-left: 4px;
+}
+
+/* ===================================
+   PAUSE-BILDSCHIRM
+   =================================== */
+
+.pause-content {
+    background: rgba(15, 52, 96, 0.95);
+    border: 3px solid #e94560;
+    border-radius: 15px;
+    padding: 50px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.pause-content h2 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #e94560;
+}
+
+.pause-stats {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    font-size: 1.2em;
+}
+
+.pause-stats p {
+    margin: 10px 0;
+}
+
+.pause-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-resume {
+    padding: 15px;
+    font-size: 1.1em;
+    background: #4ade80;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-resume:hover {
+    background: #22c55e;
+    transform: scale(1.05);
+}
+
+.btn-menu {
+    padding: 15px;
+    font-size: 1.1em;
+    background: #64748b;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-menu:hover {
+    background: #475569;
+    transform: scale(1.05);
+}
+
+/* ===================================
+   GAME OVER-BILDSCHIRM
+   =================================== */
+
+.gameover-content {
+    background: rgba(15, 52, 96, 0.95);
+    border: 3px solid #e94560;
+    border-radius: 15px;
+    padding: 50px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.gameover-content h2 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #e94560;
+}
+
+.gameover-stats {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.stat-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border-left: 4px solid #e94560;
+}
+
+.stat-box .stat-label {
+    color: #b0b0b0;
+}
+
+.stat-box .stat-value {
+    color: #e94560;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+#new-record-box {
+    background: rgba(233, 69, 96, 0.2) !important;
+    border-left-color: #fbbf24 !important;
+    animation: recordFlash 0.5s infinite;
+}
+
+@keyframes recordFlash {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(251, 191, 36, 1);
+    }
+}
+
+.btn-restart {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    background: #e94560;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-restart:hover {
+    background: #ff5577;
+    transform: scale(1.05);
+}
+
+/* ===================================
+   BUTTONS
+   =================================== */
+
+.btn {
+    padding: 12px 24px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background: #e94560;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: #ff5577;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(233, 69, 96, 0.4);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* ===================================
+   SOUND TOGGLE
+   =================================== */
+
+.btn-sound {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #e94560;
+    border: 2px solid #ff5577;
+    color: #fff;
+    font-size: 1.5em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(233, 69, 96, 0.4);
+}
+
+.btn-sound:hover {
+    background: #ff5577;
+    transform: scale(1.1);
+}
+
+.btn-sound.muted {
+    background: #64748b;
+    border-color: #94a3b8;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 600px) {
+    .header h1 {
+        font-size: 1.8em;
+    }
+
+    .start-content,
+    .pause-content,
+    .gameover-content {
+        padding: 30px 20px;
+    }
+
+    .difficulty-buttons {
+        flex-direction: column;
+    }
+
+    .btn-difficulty {
+        min-width: auto;
+    }
+
+    .game-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .game-field {
+        margin: 10px;
+    }
+
+    .fly {
+        width: 30px;
+        height: 30px;
+    }
+
+    .fly-body {
+        width: 15px;
+        height: 20px;
+        left: 7.5px;
+        top: 6px;
+    }
+
+    .fly-head {
+        width: 12px;
+        height: 10px;
+        left: 9px;
+        top: 1px;
+    }
+
+    .wing {
+        height: 8px;
+    }
+
+    .wing.w1 {
+        width: 14px;
+        left: 3px;
+    }
+
+    .wing.w2 {
+        width: 14px;
+        right: 3px;
+    }
+}
+
+/* ===================================
+   ANIMATIONEN
+   =================================== */
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.fly.shake {
+    animation: shake 0.3s;
+}
