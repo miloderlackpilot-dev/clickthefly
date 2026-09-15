@@ -7,64 +7,54 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Menu Screen -->
-        <div class="screen screen-active" id="menu">
-            <div class="menu-content">
-                <h1>🪰 CLICK THE FLY</h1>
-                <p>Klicke auf die Fliege!</p>
-                
-                <div class="difficulty-select">
-                    <button class="btn-difficulty" data-difficulty="easy">Easy (30s)</button>
-                    <button class="btn-difficulty" data-difficulty="medium">Medium (20s)</button>
-                    <button class="btn-difficulty" data-difficulty="hard">Hard (10s)</button>
-                </div>
-
-                <div class="best-score">
-                    Best: <span id="best">0</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Game Screen -->
-        <div class="screen" id="game">
-            <div class="game-top">
-                <div class="score-box">Score: <span id="score">0</span></div>
-                <div class="timer-box">Zeit: <span id="timer">30</span>s</div>
-                <button class="btn-menu-small" id="exit-btn">✕</button>
-            </div>
+    <!-- Menu -->
+    <div id="menu" class="screen active">
+        <div class="menu-box">
+            <h1>🪰 CLICK THE FLY</h1>
+            <p>Klicke auf die Fliege!</p>
             
-            <div class="game-field" id="field"></div>
-            
-            <div class="game-bottom">
-                <button class="btn-pause" id="pause-btn">⏸ Pause</button>
-            </div>
-        </div>
+            <button class="btn-diff" onclick="game.selectDifficulty('easy')">
+                🟢 Easy (30s)
+            </button>
+            <button class="btn-diff" onclick="game.selectDifficulty('medium')">
+                🟡 Medium (20s)
+            </button>
+            <button class="btn-diff" onclick="game.selectDifficulty('hard')">
+                🔴 Hard (10s)
+            </button>
 
-        <!-- Pause Screen -->
-        <div class="screen" id="pause">
-            <div class="pause-box">
-                <h2>⏸ PAUSIERT</h2>
-                <p>Score: <strong id="pause-score">0</strong></p>
-                <p>Zeit: <strong id="pause-time">0</strong>s</p>
-                <div class="pause-buttons">
-                    <button class="btn btn-primary" id="resume-btn">Fortsetzen</button>
-                    <button class="btn btn-secondary" id="pause-menu-btn">Menü</button>
-                </div>
-            </div>
+            <div class="best">Best: <span id="best-score">0</span></div>
         </div>
+    </div>
 
-        <!-- Game Over Screen -->
-        <div class="screen" id="gameover">
-            <div class="gameover-box">
-                <h2>🎮 SPIEL VORBEI</h2>
-                <div class="result">
-                    <p>Score: <span id="final-score">0</span></p>
-                    <p>Best: <span id="final-best">0</span></p>
-                    <p id="record" class="record-msg" style="display:none;">🏆 NEUER REKORD! 🏆</p>
-                </div>
-                <button class="btn btn-primary" id="replay-btn">Nochmal</button>
-            </div>
+    <!-- Confirm -->
+    <div id="confirm" class="screen">
+        <div class="confirm-box">
+            <h2>Bereit?</h2>
+            <p>Schwierigkeit: <strong id="confirm-diff">Easy</strong></p>
+            <button class="btn-yes" onclick="game.startGame()">🎮 JA, START!</button>
+            <button class="btn-no" onclick="game.backToMenu()">❌ NEIN</button>
+        </div>
+    </div>
+
+    <!-- Game -->
+    <div id="game-screen" class="screen">
+        <div class="game-top">
+            <div class="info">Score: <span id="score">0</span></div>
+            <div class="info">Zeit: <span id="timer">30</span>s</div>
+            <button class="btn-exit" onclick="game.backToMenu()">✕</button>
+        </div>
+        <div id="field" class="game-field"></div>
+    </div>
+
+    <!-- Game Over -->
+    <div id="gameover" class="screen">
+        <div class="result-box">
+            <h2>SPIEL VORBEI!</h2>
+            <p>Score: <strong id="final-score">0</strong></p>
+            <p>Best: <strong id="final-best">0</strong></p>
+            <p id="new-record" class="record" style="display:none;">🏆 NEUER REKORD!</p>
+            <button class="btn-replay" onclick="game.backToMenu()">🎮 NOCHMAL</button>
         </div>
     </div>
 
