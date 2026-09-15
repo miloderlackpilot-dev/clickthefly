@@ -14,83 +14,70 @@ body {
     padding: 10px;
 }
 
-.container {
-    width: 100%;
-    max-width: 500px;
-    height: 100vh;
-    max-height: 800px;
-    display: flex;
-    flex-direction: column;
-    background: #1a1a2e;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
-}
-
-/* ===== SCREENS ===== */
-
 .screen {
-    display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    display: flex;
     align-items: center;
     justify-content: center;
-    animation: fadeIn 0.3s;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 1;
 }
 
-.screen-active {
-    display: flex;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.screen.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
 }
 
 /* ===== MENU ===== */
 
 #menu {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.menu-content {
+.menu-box {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: 3px solid #e94560;
+    border-radius: 20px;
+    padding: 40px 30px;
     text-align: center;
     color: white;
-    padding: 20px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
-.menu-content h1 {
+.menu-box h1 {
     font-size: 3em;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     animation: bounce 2s infinite;
 }
 
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-15px); }
 }
 
-.menu-content p {
-    font-size: 1.1em;
+.menu-box p {
+    font-size: 1.2em;
     color: #aaa;
     margin-bottom: 30px;
 }
 
-.difficulty-select {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 40px;
-}
-
-.btn-difficulty {
+.btn-diff {
+    display: block;
+    width: 100%;
     padding: 15px;
+    margin: 12px 0;
     font-size: 1.1em;
-    background: #0f3460;
+    background: linear-gradient(135deg, #0f3460 0%, #1a5a7a 100%);
     color: white;
     border: 2px solid #e94560;
     border-radius: 10px;
@@ -99,56 +86,131 @@ body {
     transition: all 0.3s;
 }
 
-.btn-difficulty:active {
+.btn-diff:hover {
     background: #e94560;
+    transform: scale(1.05);
+}
+
+.btn-diff:active {
     transform: scale(0.95);
 }
 
-.best-score {
+.best {
+    margin-top: 30px;
     font-size: 1.3em;
     color: #e94560;
     font-weight: bold;
 }
 
-#best {
+#best-score {
     color: #ffd700;
     font-size: 1.5em;
 }
 
+/* ===== CONFIRM ===== */
+
+#confirm {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.confirm-box {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: 3px solid #e94560;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    color: white;
+    max-width: 350px;
+    width: 90%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.confirm-box h2 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    color: #e94560;
+}
+
+.confirm-box p {
+    font-size: 1.2em;
+    margin: 15px 0;
+    color: #aaa;
+}
+
+.confirm-box strong {
+    color: #ffd700;
+    font-size: 1.3em;
+}
+
+.btn-yes, .btn-no {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-yes {
+    background: #4ade80;
+    color: white;
+}
+
+.btn-yes:hover {
+    background: #22c55e;
+    transform: scale(1.05);
+}
+
+.btn-no {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-no:hover {
+    background: #dc2626;
+    transform: scale(1.05);
+}
+
 /* ===== GAME ===== */
 
-#game {
-    flex-direction: column;
+#game-screen {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    padding: 0;
 }
 
 .game-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.4);
     border-bottom: 2px solid #e94560;
+    z-index: 20;
     gap: 10px;
 }
 
-.score-box, .timer-box {
+.info {
     background: rgba(233, 69, 96, 0.2);
     padding: 10px 15px;
     border-radius: 8px;
     color: white;
     font-weight: bold;
-    flex: 1;
-    text-align: center;
+    font-size: 1em;
 }
 
-.score-box span, .timer-box span {
+.info span {
     color: #e94560;
-    font-size: 1.3em;
+    font-size: 1.4em;
 }
 
-.btn-menu-small {
+.btn-exit {
     background: #e94560;
     color: white;
     border: none;
@@ -160,41 +222,21 @@ body {
     transition: all 0.3s;
 }
 
-.btn-menu-small:active {
+.btn-exit:hover {
     background: #ff5577;
+}
+
+.btn-exit:active {
     transform: scale(0.9);
 }
 
 .game-field {
-    flex: 1;
-    position: relative;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: linear-gradient(135deg, rgba(15, 52, 96, 0.5) 0%, rgba(22, 33, 62, 0.5) 100%);
-    margin: 0;
-}
-
-.game-bottom {
-    padding: 15px 20px;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.3);
-    border-top: 2px solid #e94560;
-}
-
-.btn-pause {
-    padding: 12px 30px;
-    font-size: 1em;
-    background: #e94560;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s;
-    width: 100%;
-}
-
-.btn-pause:active {
-    background: #ff5577;
-    transform: scale(0.95);
 }
 
 /* ===== FLY ===== */
@@ -205,34 +247,6 @@ body {
     height: 35px;
     cursor: pointer;
     user-select: none;
-    animation: wiggle 0.2s infinite;
-}
-
-@keyframes wiggle {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(2deg); }
-    75% { transform: rotate(-2deg); }
-}
-
-.fly:active {
-    animation: bounce-fly 0.3s;
-}
-
-@keyframes bounce-fly {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1); }
-}
-
-.fly-body {
-    position: absolute;
-    width: 18px;
-    height: 22px;
-    background: #222;
-    border-radius: 50% 50% 40% 40%;
-    left: 8px;
-    top: 7px;
-    box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .fly-head {
@@ -256,6 +270,17 @@ body {
 
 .fly-eye.left { left: 4px; }
 .fly-eye.right { right: 4px; }
+
+.fly-body {
+    position: absolute;
+    width: 18px;
+    height: 22px;
+    background: #222;
+    border-radius: 50% 50% 40% 40%;
+    left: 8px;
+    top: 7px;
+    box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.8);
+}
 
 .fly-wing {
     position: absolute;
@@ -283,86 +308,46 @@ body {
     50% { opacity: 0.9; transform: scaleX(1); }
 }
 
-/* ===== PAUSE ===== */
-
-#pause {
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 100;
-}
-
-.pause-box {
-    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
-    border: 3px solid #e94560;
-    border-radius: 15px;
-    padding: 40px 30px;
-    text-align: center;
-    color: white;
-    max-width: 90%;
-}
-
-.pause-box h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #e94560;
-}
-
-.pause-box p {
-    font-size: 1.2em;
-    margin: 10px 0;
-}
-
-.pause-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 25px;
-}
-
 /* ===== GAMEOVER ===== */
 
 #gameover {
     background: rgba(0, 0, 0, 0.7);
-    z-index: 100;
 }
 
-.gameover-box {
-    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+.result-box {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     border: 3px solid #e94560;
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 40px 30px;
     text-align: center;
     color: white;
-    max-width: 90%;
+    max-width: 350px;
+    width: 90%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
-.gameover-box h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
+.result-box h2 {
+    font-size: 2.2em;
+    margin-bottom: 25px;
     color: #e94560;
 }
 
-.result {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.result p {
+.result-box p {
     font-size: 1.1em;
-    margin: 10px 0;
+    margin: 12px 0;
+    color: #aaa;
 }
 
-.result span {
+.result-box strong {
     color: #ffd700;
-    font-weight: bold;
     font-size: 1.3em;
 }
 
-.record-msg {
+.record {
     color: #ffd700;
     font-weight: bold;
-    animation: pulse 0.5s infinite !important;
+    font-size: 1.3em !important;
+    animation: pulse 0.5s infinite;
 }
 
 @keyframes pulse {
@@ -370,49 +355,50 @@ body {
     50% { transform: scale(1.1); }
 }
 
-/* ===== BUTTONS ===== */
-
-.btn {
-    padding: 14px;
+.btn-replay {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
     font-size: 1.1em;
+    background: #e94560;
+    color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s;
-    width: 100%;
 }
 
-.btn-primary {
-    background: #e94560;
-    color: white;
-}
-
-.btn-primary:active {
+.btn-replay:hover {
     background: #ff5577;
-    transform: scale(0.95);
+    transform: scale(1.05);
 }
 
-.btn-secondary {
-    background: #0f3460;
-    color: white;
-    border: 2px solid #e94560;
-}
-
-.btn-secondary:active {
-    background: #1a5a7a;
+.btn-replay:active {
     transform: scale(0.95);
 }
 
 /* ===== RESPONSIVE ===== */
 
 @media (max-width: 480px) {
-    .menu-content h1 {
+    .menu-box, .confirm-box, .result-box {
+        padding: 30px 20px;
+        border-radius: 15px;
+    }
+
+    .menu-box h1 {
         font-size: 2.2em;
     }
 
-    .pause-box, .gameover-box {
-        padding: 30px 20px;
+    .btn-diff {
+        padding: 12px;
+        font-size: 1em;
+    }
+
+    .info {
+        font-size: 0.9em;
+        padding: 8px 10px;
     }
 
     .fly {
@@ -435,36 +421,5 @@ body {
     .fly-wing {
         width: 12px;
         height: 7px;
-    }
-
-    .game-top {
-        padding: 12px 15px;
-        gap: 8px;
-    }
-
-    .score-box, .timer-box {
-        font-size: 0.9em;
-        padding: 8px 12px;
-    }
-}
-
-@media (max-height: 600px) {
-    .menu-content {
-        padding: 15px;
-    }
-
-    .menu-content h1 {
-        font-size: 2em;
-        margin-bottom: 8px;
-    }
-
-    .difficulty-select {
-        gap: 8px;
-        margin-bottom: 20px;
-    }
-
-    .btn-difficulty {
-        padding: 12px;
-        font-size: 1em;
     }
 }
