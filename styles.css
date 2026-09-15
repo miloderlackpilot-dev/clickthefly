@@ -1,86 +1,33 @@
-/* ===================================
-   CLICK THE FLY - Stylesheet
-   =================================== */
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ===================================
-   ALLGEMEINE STYLES
-   =================================== */
-
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    color: #fff;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 10px;
 }
 
 .container {
     width: 100%;
-    max-width: 800px;
+    max-width: 500px;
     height: 100vh;
+    max-height: 800px;
     display: flex;
     flex-direction: column;
-    background: rgba(0, 0, 0, 0.3);
-    position: relative;
-}
-
-/* ===================================
-   HEADER
-   =================================== */
-
-.header {
-    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    border-bottom: 3px solid #e94560;
-}
-
-.header h1 {
-    font-size: 2.5em;
-    margin-bottom: 5px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    animation: pulse 2s infinite;
-}
-
-.header .subtitle {
-    font-size: 0.9em;
-    color: #b0b0b0;
-    font-style: italic;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-}
-
-/* ===================================
-   MAIN CONTENT
-   =================================== */
-
-.main-content {
-    flex: 1;
-    position: relative;
+    background: #1a1a2e;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     overflow: hidden;
-    padding: 20px;
 }
 
-/* ===================================
-   SCREEN SYSTEM
-   =================================== */
+/* ===== SCREENS ===== */
 
 .screen {
     display: none;
@@ -89,547 +36,383 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 20px;
-    animation: fadeIn 0.3s ease-in;
-    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s;
 }
 
 .screen-active {
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-/* ===================================
-   START-BILDSCHIRM
-   =================================== */
+/* ===== MENU ===== */
 
-.start-content {
-    background: rgba(15, 52, 96, 0.95);
-    border: 2px solid #e94560;
-    border-radius: 15px;
-    padding: 40px;
+#menu {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.menu-content {
     text-align: center;
-    max-width: 500px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 20px;
 }
 
-.start-content h2 {
-    font-size: 2em;
-    margin-bottom: 15px;
-    color: #e94560;
+.menu-content h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: bounce 2s infinite;
 }
 
-.start-content p {
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.menu-content p {
     font-size: 1.1em;
+    color: #aaa;
     margin-bottom: 30px;
-    color: #b0b0b0;
 }
 
-.difficulty-selector h3 {
-    margin-bottom: 20px;
-    font-size: 1.3em;
-}
-
-.difficulty-buttons {
+.difficulty-select {
     display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 40px;
 }
 
 .btn-difficulty {
-    flex: 1;
-    min-width: 120px;
-    padding: 15px 20px;
-    font-size: 1em;
+    padding: 15px;
+    font-size: 1.1em;
+    background: #0f3460;
+    color: white;
+    border: 2px solid #e94560;
+    border-radius: 10px;
     cursor: pointer;
-    border: 2px solid transparent;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    transition: all 0.3s ease;
     font-weight: bold;
+    transition: all 0.3s;
 }
 
-.btn-difficulty:hover {
-    background: rgba(233, 69, 96, 0.3);
-    border-color: #e94560;
-    transform: translateY(-2px);
+.btn-difficulty:active {
+    background: #e94560;
+    transform: scale(0.95);
 }
 
-.btn-difficulty small {
-    display: block;
-    font-size: 0.8em;
-    color: #b0b0b0;
-    margin-top: 5px;
-}
-
-.stats-display {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-}
-
-.stat {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.2em;
-}
-
-.stat-label {
-    color: #b0b0b0;
-}
-
-.stat-value {
+.best-score {
+    font-size: 1.3em;
     color: #e94560;
     font-weight: bold;
+}
+
+#best {
+    color: #ffd700;
     font-size: 1.5em;
 }
 
-/* ===================================
-   GAME-BILDSCHIRM
-   =================================== */
+/* ===== GAME ===== */
 
-#screen-game {
-    display: flex;
+#game {
     flex-direction: column;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     padding: 0;
-    background: transparent;
 }
 
-.game-header {
-    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
-    padding: 15px 20px;
-    border-bottom: 2px solid #e94560;
-}
-
-.game-info {
+.game-top {
     display: flex;
-    justify-content: space-around;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.info-item {
-    display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: 5px;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 2px solid #e94560;
+    gap: 10px;
 }
 
-.info-item .label {
-    color: #b0b0b0;
-    font-size: 0.9em;
-}
-
-.info-item .value {
-    color: #e94560;
-    font-size: 1.8em;
+.score-box, .timer-box {
+    background: rgba(233, 69, 96, 0.2);
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: white;
     font-weight: bold;
+    flex: 1;
+    text-align: center;
+}
+
+.score-box span, .timer-box span {
+    color: #e94560;
+    font-size: 1.3em;
+}
+
+.btn-menu-small {
+    background: #e94560;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-menu-small:active {
+    background: #ff5577;
+    transform: scale(0.9);
 }
 
 .game-field {
     flex: 1;
     position: relative;
-    background: linear-gradient(135deg, rgba(15, 52, 96, 0.3) 0%, rgba(22, 33, 62, 0.3) 100%);
-    border: 2px solid rgba(233, 69, 96, 0.3);
-    margin: 20px;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: crosshair;
+    background: linear-gradient(135deg, rgba(15, 52, 96, 0.5) 0%, rgba(22, 33, 62, 0.5) 100%);
+    margin: 0;
 }
 
-.controls {
+.game-bottom {
     padding: 15px 20px;
     text-align: center;
     background: rgba(0, 0, 0, 0.3);
+    border-top: 2px solid #e94560;
 }
 
-.btn-control {
-    padding: 10px 20px;
+.btn-pause {
+    padding: 12px 30px;
     font-size: 1em;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
     background: #e94560;
-    color: #fff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
     font-weight: bold;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
+    width: 100%;
 }
 
-.btn-control:hover {
+.btn-pause:active {
     background: #ff5577;
-    transform: scale(1.05);
+    transform: scale(0.95);
 }
 
-/* ===================================
-   FLIEGE
-   =================================== */
+/* ===== FLY ===== */
 
 .fly {
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
     user-select: none;
-    transition: all 0.1s ease;
-    filter: drop-shadow(0 0 5px rgba(233, 69, 96, 0.6));
+    animation: wiggle 0.2s infinite;
 }
 
-.fly:hover {
-    transform: scale(1.2);
-    filter: drop-shadow(0 0 15px rgba(233, 69, 96, 1));
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    75% { transform: rotate(-2deg); }
+}
+
+.fly:active {
+    animation: bounce-fly 0.3s;
+}
+
+@keyframes bounce-fly {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
 }
 
 .fly-body {
     position: absolute;
-    width: 20px;
-    height: 25px;
-    background: #2a2a2a;
+    width: 18px;
+    height: 22px;
+    background: #222;
     border-radius: 50% 50% 40% 40%;
-    left: 10px;
-    top: 8px;
-    box-shadow: inset -2px -2px 3px rgba(0, 0, 0, 0.8);
+    left: 8px;
+    top: 7px;
+    box-shadow: inset -1px -1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .fly-head {
     position: absolute;
-    width: 15px;
-    height: 12px;
-    background: #1a1a1a;
+    width: 13px;
+    height: 10px;
+    background: #111;
     border-radius: 50%;
-    left: 12.5px;
+    left: 11px;
     top: 2px;
-    border: 1px solid #444;
 }
 
 .fly-eye {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 2px;
+    height: 2px;
     background: #e94560;
     border-radius: 50%;
-    top: 4px;
+    top: 3px;
 }
 
-.fly-eye.left {
-    left: 5px;
-}
+.fly-eye.left { left: 4px; }
+.fly-eye.right { right: 4px; }
 
-.fly-eye.right {
-    right: 5px;
-}
-
-.wing {
+.fly-wing {
     position: absolute;
-    background: rgba(233, 69, 96, 0.4);
+    width: 15px;
+    height: 8px;
+    background: rgba(233, 69, 96, 0.3);
     border: 1px solid #e94560;
     border-radius: 50%;
-    animation: wingFlap 0.1s infinite;
+    animation: wing-flap 0.1s infinite;
 }
 
-.wing.w1 {
-    width: 18px;
-    height: 10px;
-    left: 5px;
-    top: 10px;
-    animation-direction: normal;
+.fly-wing.w1 {
+    left: 3px;
+    top: 9px;
 }
 
-.wing.w2 {
-    width: 18px;
-    height: 10px;
-    right: 5px;
-    top: 10px;
+.fly-wing.w2 {
+    right: 3px;
+    top: 9px;
     animation-direction: reverse;
 }
 
-@keyframes wingFlap {
-    0%, 100% {
-        opacity: 0.4;
-        transform: rotateY(0deg);
-    }
-    50% {
-        opacity: 0.8;
-        transform: rotateY(45deg);
-    }
+@keyframes wing-flap {
+    0%, 100% { opacity: 0.5; transform: scaleX(0.8); }
+    50% { opacity: 0.9; transform: scaleX(1); }
 }
 
-.leg {
-    position: absolute;
-    width: 2px;
-    height: 8px;
-    background: #444;
-    left: 50%;
-    bottom: -3px;
+/* ===== PAUSE ===== */
+
+#pause {
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100;
 }
 
-.leg.l1 {
-    margin-left: -6px;
-}
-
-.leg.l2 {
-    margin-left: 4px;
-}
-
-/* ===================================
-   PAUSE-BILDSCHIRM
-   =================================== */
-
-.pause-content {
-    background: rgba(15, 52, 96, 0.95);
+.pause-box {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
     border: 3px solid #e94560;
     border-radius: 15px;
-    padding: 50px;
+    padding: 40px 30px;
     text-align: center;
-    max-width: 400px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    color: white;
+    max-width: 90%;
 }
 
-.pause-content h2 {
-    font-size: 2.5em;
-    margin-bottom: 30px;
+.pause-box h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
     color: #e94560;
 }
 
-.pause-stats {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
+.pause-box p {
     font-size: 1.2em;
-}
-
-.pause-stats p {
     margin: 10px 0;
 }
 
 .pause-buttons {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
+    margin-top: 25px;
 }
 
-.btn-resume {
-    padding: 15px;
-    font-size: 1.1em;
-    background: #4ade80;
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
+/* ===== GAMEOVER ===== */
+
+#gameover {
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100;
 }
 
-.btn-resume:hover {
-    background: #22c55e;
-    transform: scale(1.05);
-}
-
-.btn-menu {
-    padding: 15px;
-    font-size: 1.1em;
-    background: #64748b;
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.btn-menu:hover {
-    background: #475569;
-    transform: scale(1.05);
-}
-
-/* ===================================
-   GAME OVER-BILDSCHIRM
-   =================================== */
-
-.gameover-content {
-    background: rgba(15, 52, 96, 0.95);
+.gameover-box {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
     border: 3px solid #e94560;
     border-radius: 15px;
-    padding: 50px;
+    padding: 40px 30px;
     text-align: center;
-    max-width: 400px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    color: white;
+    max-width: 90%;
 }
 
-.gameover-content h2 {
-    font-size: 2.5em;
-    margin-bottom: 30px;
+.gameover-box h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
     color: #e94560;
 }
 
-.gameover-stats {
+.result {
     background: rgba(0, 0, 0, 0.3);
     padding: 20px;
     border-radius: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
-.stat-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
+.result p {
+    font-size: 1.1em;
     margin: 10px 0;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    border-left: 4px solid #e94560;
 }
 
-.stat-box .stat-label {
-    color: #b0b0b0;
-}
-
-.stat-box .stat-value {
-    color: #e94560;
-    font-size: 1.8em;
+.result span {
+    color: #ffd700;
     font-weight: bold;
+    font-size: 1.3em;
 }
 
-#new-record-box {
-    background: rgba(233, 69, 96, 0.2) !important;
-    border-left-color: #fbbf24 !important;
-    animation: recordFlash 0.5s infinite;
+.record-msg {
+    color: #ffd700;
+    font-weight: bold;
+    animation: pulse 0.5s infinite !important;
 }
 
-@keyframes recordFlash {
-    0%, 100% {
-        box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(251, 191, 36, 1);
-    }
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
 }
 
-.btn-restart {
-    padding: 15px 30px;
-    font-size: 1.2em;
-    background: #e94560;
+/* ===== BUTTONS ===== */
+
+.btn {
+    padding: 14px;
+    font-size: 1.1em;
     border: none;
     border-radius: 8px;
-    color: #fff;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
     width: 100%;
 }
 
-.btn-restart:hover {
-    background: #ff5577;
-    transform: scale(1.05);
-}
-
-/* ===================================
-   BUTTONS
-   =================================== */
-
-.btn {
-    padding: 12px 24px;
-    font-size: 1em;
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
+.btn-primary {
     background: #e94560;
-    color: #fff;
-    font-weight: bold;
-    transition: all 0.3s ease;
+    color: white;
 }
 
-.btn:hover {
+.btn-primary:active {
     background: #ff5577;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(233, 69, 96, 0.4);
+    transform: scale(0.95);
 }
 
-.btn:active {
-    transform: translateY(0);
+.btn-secondary {
+    background: #0f3460;
+    color: white;
+    border: 2px solid #e94560;
 }
 
-/* ===================================
-   SOUND TOGGLE
-   =================================== */
-
-.btn-sound {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #e94560;
-    border: 2px solid #ff5577;
-    color: #fff;
-    font-size: 1.5em;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 100;
-    box-shadow: 0 4px 12px rgba(233, 69, 96, 0.4);
+.btn-secondary:active {
+    background: #1a5a7a;
+    transform: scale(0.95);
 }
 
-.btn-sound:hover {
-    background: #ff5577;
-    transform: scale(1.1);
-}
+/* ===== RESPONSIVE ===== */
 
-.btn-sound.muted {
-    background: #64748b;
-    border-color: #94a3b8;
-}
-
-/* ===================================
-   RESPONSIVE DESIGN
-   =================================== */
-
-@media (max-width: 600px) {
-    .header h1 {
-        font-size: 1.8em;
+@media (max-width: 480px) {
+    .menu-content h1 {
+        font-size: 2.2em;
     }
 
-    .start-content,
-    .pause-content,
-    .gameover-content {
+    .pause-box, .gameover-box {
         padding: 30px 20px;
-    }
-
-    .difficulty-buttons {
-        flex-direction: column;
-    }
-
-    .btn-difficulty {
-        min-width: auto;
-    }
-
-    .game-info {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .game-field {
-        margin: 10px;
     }
 
     .fly {
@@ -639,58 +422,49 @@ body {
 
     .fly-body {
         width: 15px;
-        height: 20px;
+        height: 18px;
         left: 7.5px;
-        top: 6px;
     }
 
     .fly-head {
+        width: 11px;
+        height: 9px;
+        left: 9.5px;
+    }
+
+    .fly-wing {
         width: 12px;
-        height: 10px;
-        left: 9px;
-        top: 1px;
+        height: 7px;
     }
 
-    .wing {
-        height: 8px;
+    .game-top {
+        padding: 12px 15px;
+        gap: 8px;
     }
 
-    .wing.w1 {
-        width: 14px;
-        left: 3px;
-    }
-
-    .wing.w2 {
-        width: 14px;
-        right: 3px;
+    .score-box, .timer-box {
+        font-size: 0.9em;
+        padding: 8px 12px;
     }
 }
 
-/* ===================================
-   ANIMATIONEN
-   =================================== */
+@media (max-height: 600px) {
+    .menu-content {
+        padding: 15px;
+    }
 
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
+    .menu-content h1 {
+        font-size: 2em;
+        margin-bottom: 8px;
     }
-    50% {
-        transform: translateY(-10px);
-    }
-}
 
-@keyframes shake {
-    0%, 100% {
-        transform: translateX(0);
+    .difficulty-select {
+        gap: 8px;
+        margin-bottom: 20px;
     }
-    25% {
-        transform: translateX(-5px);
-    }
-    75% {
-        transform: translateX(5px);
-    }
-}
 
-.fly.shake {
-    animation: shake 0.3s;
+    .btn-difficulty {
+        padding: 12px;
+        font-size: 1em;
+    }
 }
