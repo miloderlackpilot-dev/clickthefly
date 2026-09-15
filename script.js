@@ -4,70 +4,43 @@ class Game {
         this.best = parseInt(localStorage.getItem('flyBest')) || 0;
         this.timeLeft = 0;
         this.running = false;
-        this.paused = false;
         this.difficulty = 'easy';
         this.timerInterval = null;
         this.fly = null;
+        this.selectedDifficulty = null;
 
-        // DOM
-        this.field = document.getElementById('field');
-        this.scoreEl = document.getElementById('score');
-        this.timerEl = document.getElementById('timer');
-        this.bestEl = document.getElementById('best');
-
-        // Configs
         this.configs = {
-            easy: { time: 30 },
-            medium: { time: 20 },
-            hard: { time: 10 }
+            easy: { time: 30, name: 'Easy' },
+            medium: { time: 20, name: 'Medium' },
+            hard: { time: 10, name: 'Hard' }
         };
 
-        this.init();
-    }
-
-    init() {
-        // Menu buttons - Fix für Event Listener
-        const diffButtons = document.querySelectorAll('.btn-difficulty');
-        console.log('Found difficulty buttons:', diffButtons.length);
-        
-        diffButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                this.difficulty = btn.dataset.difficulty;
-                console.log('Starting game with difficulty:', this.difficulty);
-                this.start();
-            });
-        });
-
-        // Game buttons
-        const pauseBtn = document.getElementById('pause-btn');
-        const resumeBtn = document.getElementById('resume-btn');
-        const pauseMenuBtn = document.getElementById('pause-menu-btn');
-        const exitBtn = document.getElementById('exit-btn');
-        const replayBtn = document.getElementById('replay-btn');
-
-        if (pauseBtn) pauseBtn.addEventListener('click', () => this.pause());
-        if (resumeBtn) resumeBtn.addEventListener('click', () => this.resume());
-        if (pauseMenuBtn) pauseMenuBtn.addEventListener('click', () => this.goMenu());
-        if (exitBtn) exitBtn.addEventListener('click', () => this.goMenu());
-        if (replayBtn) replayBtn.addEventListener('click', () => this.goMenu());
-
         this.updateBest();
-        console.log('Game initialized. Best score:', this.best);
     }
 
-    start() {
+    selectDifficulty(difficulty) {
+        this.selectedDifficulty = difficulty;
+        document.getElementById('confirm-diff').textContent = this.configs[difficulty].name;
+        this.showScreen('confirm');
+    }
+
+    startGame() {
+        this.difficulty = this.selectedDifficulty;
         this.score = 0;
         this.timeLeft = this.configs[this.difficulty].time;
         this.running = true;
-        this.paused = false;
 
-        console.log('Game started with', this.timeLeft, 'seconds');
-        
-        this.showScreen('game');
-        this.updateScore();
-        this.updateTimer();
+        this.showScreen('game-screen');
         this.createFly();
         this.startTimer();
+    }
+
+    backToMenu() {
+        this.running = false;
+        if (this.timerInterval) clearInterval(this.timerInterval);
+        if (this.fly) this.fly.remove();
+        document.getElementById('field').innerHTML = '';
+        this.showScreen('menu');
     }
 
     createFly() {
@@ -85,13 +58,14 @@ class Game {
             <div class="fly-wing w2"></div>
         `;
 
-        this.field.appendChild(this.fly);
+        document.getElementById('field').appendChild(this.fly);
         this.moveFly();
         this.fly.addEventListener('click', (e) => this.clickFly(e));
     }
 
     moveFly() {
-        const rect = this.field.getBoundingClientRect();
+        const field = document.getElementById('field');
+        const rect = field.getBoundingClientRect();
         const pad = 50;
         
         const x = pad + Math.random() * Math.max(1, rect.width - pad * 2);
@@ -102,11 +76,11 @@ class Game {
     }
 
     clickFly(e) {
-        if (!this.running || this.paused) return;
+        if (!this.running) return;
         e.stopPropagation();
 
         this.score++;
-        this.updateScore();
+        document.getElementById('score').textContent = this.score;
 
         if (this.score > this.best) {
             this.best = this.score;
@@ -118,50 +92,26 @@ class Game {
     }
 
     startTimer() {
+        document.getElementById('timer').textContent = this.timeLeft;
+        
         this.timerInterval = setInterval(() => {
-            if (!this.paused) {
-                this.timeLeft--;
-                this.updateTimer();
+            this.timeLeft--;
+            document.getElementById('timer').textContent = this.timeLeft;
 
-                if (this.timeLeft <= 0) {
-                    this.end();
-                }
+            if (this.timeLeft <= 0) {
+                this.endGame();
             }
         }, 1000);
     }
 
-    updateScore() {
-        this.scoreEl.textContent = this.score;
-    }
-
-    updateTimer() {
-        this.timerEl.textContent = this.timeLeft;
-    }
-
-    updateBest() {
-        this.bestEl.textContent = this.best;
-    }
-
-    pause() {
-        this.paused = true;
-        document.getElementById('pause-score').textContent = this.score;
-        document.getElementById('pause-time').textContent = this.timeLeft;
-        this.showScreen('pause');
-    }
-
-    resume() {
-        this.paused = false;
-        this.showScreen('game');
-    }
-
-    end() {
+    endGame() {
         this.running = false;
         clearInterval(this.timerInterval);
 
         document.getElementById('final-score').textContent = this.score;
         document.getElementById('final-best').textContent = this.best;
 
-        const recordEl = document.getElementById('record');
+        const recordEl = document.getElementById('new-record');
         if (this.score === this.best && this.score > 0) {
             recordEl.style.display = 'block';
         } else {
@@ -171,18 +121,13 @@ class Game {
         this.showScreen('gameover');
     }
 
-    goMenu() {
-        this.running = false;
-        this.paused = false;
-        clearInterval(this.timerInterval);
-        if (this.fly) this.fly.remove();
-        this.field.innerHTML = '';
-        this.showScreen('menu');
+    showScreen(name) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(name).classList.add('active');
     }
 
-    showScreen(name) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('screen-active'));
-        document.getElementById(name).classList.add('screen-active');
+    updateBest() {
+        document.getElementById('best-score').textContent = this.best;
     }
 
     saveBest() {
@@ -190,8 +135,4 @@ class Game {
     }
 }
 
-// Start game
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, initializing game...');
-    window.game = new Game();
-});
+const game = new Game();
